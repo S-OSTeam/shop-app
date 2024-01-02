@@ -1,0 +1,23 @@
+type tokenResponse{
+    accessToken: String
+    refreshToken: String
+    userId: String
+    issuedAt: DateTime
+}
+
+type KakaoTokenReturnResponse {
+    accessToken: String
+}
+
+type KakaoUnlinkResponse {
+    id: String
+}
+
+type KakaoUserInfo {
+    id: Long
+    kakaoAccount: KakaoAccount
+}
+
+type KakaoAccount {
+    email: String
+}

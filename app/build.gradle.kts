@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.apollographql.apollo3")
 }
 
 android {
@@ -33,6 +34,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    apollo {
+        service("service") {
+            packageName.set("com.example.deamhome.model")
+            mapScalarToUpload("Upload")
+        }
+    }
 }
 
 dependencies {
@@ -44,4 +51,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // graphql
+    implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
 }

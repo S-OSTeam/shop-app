@@ -1,0 +1,13 @@
+type Query {
+    ping: String @deprecated(reason: "https://stackoverflow.com/questions/59868942/graphql-a-schema-must-have-a-query-operation-defined")
+
+    findCategoryByTitle(title: String): ItemCategoryResponseDTO
+    getItemCategoriesContainsTitle(title: String): [ItemCategoryResponseDTO]
+    getItemDetailCategoryByTitle(title: String): ItemDetailCategoryResponseDTO
+
+    getItemsContainsTitle(title: String): [ItemResponseDTO]
+    getItemsByOption(categoryTitle: String, detailTitle: String, itemTitle: String): [ItemResponseDTO]
+
+    kakaoLoginUrl: String
+    kakaoUserInfo(token: String): KakaoUserInfo
+}

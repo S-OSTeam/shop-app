@@ -1,0 +1,45 @@
+mutation SignUpTest($request: signUpRequest!) {
+    signUp(request:$request)
+}
+
+mutation Test{
+    test
+}
+
+#query LaunchList($after: String) {
+#  launches(after: $after) {
+#    launches {
+#      id
+#      site
+#      mission {
+#        name
+#        missionPatch(size: LARGE)
+#      }
+#    }
+#    hasMore
+#    cursor
+#  }
+#}
+#
+#query LaunchDetails($id: ID!) {
+#  launch(id: $id) {
+#    id
+#    site
+#    mission {
+#      name
+#      missionPatch(size: LARGE)
+#    }
+#    rocket {
+#      name
+#      type
+#    }
+#    isBooked
+#  }
+#}
+#
+## !을 표시해서 널러블임을 나타낸다.
+#mutation Login($email: String!) {
+#  login(email: $email) {
+#    token
+#  }
+#}

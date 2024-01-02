@@ -1,0 +1,17 @@
+input CategoryRequestDTO {
+    title: String!
+}
+
+input DetailCategoryRequestDTO {
+    title: String!
+    categoryTitle: String!
+}
+
+type ItemCategoryResponseDTO{
+    title: String!,
+    itemDetailCategories: [ItemDetailCategoryResponseDTO]!
+}
+
+type ItemDetailCategoryResponseDTO{
+    title: String!
+}

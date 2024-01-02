@@ -1,0 +1,36 @@
+input ItemRequestDTO {
+    title: String!
+    content: String!
+    summary: String!
+    price: Int!
+    status: Boolean!
+    categoryTitle: String!
+    detailCategoryTitle: String!
+    sellerId: String!
+    images: [Upload!]
+}
+
+type ItemResponseDTO {
+    title: String!
+    content: String!
+    summary: String!
+    sellCnt: Int!
+    wishCnt: Int!
+    clickCnt: Int!
+    avgReview: Float!
+    reviewCnt: Int!
+    qnaCnt: Int!
+    status: Boolean!
+    images: [Image]!
+    sellerId: String!
+    #    account: Account
+}
+
+type Image{
+    fileName: String
+    fileOriName: String
+    path: String
+    size: Long
+    type: String
+    fileUrl: String
+}

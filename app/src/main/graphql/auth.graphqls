@@ -1,0 +1,33 @@
+input signUpRequest{
+    userId: String!
+    pwd: String!
+    confirmPwd: String!
+    sex: Boolean
+    birthday: DateTime
+    zipcode: String!
+    address1: String!
+    address2: String
+    address3: String
+    address4: String
+
+    email: String!
+    phone: String
+    receiveMail: Boolean!
+
+    snsId: String
+    sns: SNS
+
+    userName: String!
+}
+
+input loginRequest{
+    pwd: String!
+    userId: String
+    email: String
+    snsId: String
+    sns: SNS!
+}
+
+enum SNS {
+    KAKAO, NORMAL, GOOGLE, NAVER
+}
