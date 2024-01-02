@@ -1,9 +1,14 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.apollographql.apollo3")
 }
 
+val properties: Properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
+val serverUrl = properties.getProperty("SERVER_URL")
 android {
     namespace = "com.example.deamhome"
     compileSdk = 34
@@ -16,6 +21,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "SERVER_URL", serverUrl)
+    }
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -25,6 +34,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            buildConfigField("Boolean", "DEBUG_MODE", "false")
+        }
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
+            buildConfigField("Boolean", "DEBUG_MODE", "true")
         }
     }
     compileOptions {
