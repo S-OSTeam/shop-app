@@ -4,6 +4,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.apollographql.apollo3")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.22"
+    id("kotlin-parcelize") // @Parcelize
 }
 
 val properties: Properties = Properties()
@@ -61,7 +63,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -70,6 +71,35 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    // lifecycle
+    implementation("androidx.activity:activity-ktx:1.7.2") // by viewModels()
+    implementation("androidx.fragment:fragment-ktx:1.6.0") // by activityViewModels()
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+
+    // splash screen api
+    implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
+
     // graphql
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
+
+    // app update manager
+    implementation("com.google.android.play:app-update-ktx:2.1.0")
+
+    // lottie 애니메이션
+    implementation("com.airbnb.android:lottie:6.1.0")
+
+    // 이미지 처리
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // 레트로핏
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.14.9")
+
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+    // EncryptedSharedPreferences
+    implementation("androidx.security:security-crypto:1.0.0")
 }
