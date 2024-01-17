@@ -1,9 +1,13 @@
 package com.example.deamhome.data.datasource.network
 
 import com.example.deamhome.data.apollo.ProductApolloService
-import com.example.deamhome.data.retrofit.ProductRetrofitService
+import com.example.deamhome.domain.model.ApiResponse
+import com.example.deamhome.domain.model.Test
 
 class NetworkProductDataSource(
-    private val retrofitService: ProductRetrofitService,
-    private val apolloService: ProductApolloService,
-)
+    private val productService: ProductApolloService,
+) {
+    suspend fun test(): ApiResponse<Test> {
+        return productService.getTest()
+    }
+}

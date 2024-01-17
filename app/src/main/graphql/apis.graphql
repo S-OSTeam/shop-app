@@ -6,6 +6,16 @@ mutation Test{
     test
 }
 
+mutation ImageUploadToServer($image: Upload!){
+    uploadImage(image: $image)
+}
+#
+#query FindCategoryByTitle($title:String){
+#    findCategoryByTitle(title: $title) {
+#        title
+#    }
+#}
+
 #query LaunchList($after: String) {
 #  launches(after: $after) {
 #    launches {

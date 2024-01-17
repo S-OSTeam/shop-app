@@ -9,7 +9,8 @@
 
     <!-- Base application theme. -->
     <style name="Base.Theme.DeamHome" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 
 </resources>
