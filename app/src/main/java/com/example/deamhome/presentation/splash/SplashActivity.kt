@@ -9,7 +9,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.example.deamhome.R
 import com.example.deamhome.app.DeamHomeApplication
-import com.example.deamhome.presentation.login.LoginActivity
+import com.example.deamhome.presentation.auth.login.LoginActivity
 import com.example.deamhome.presentation.main.MainActivity
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay

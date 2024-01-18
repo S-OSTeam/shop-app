@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.main.MainActivity">
+        tools:context=".presentation.main.cart.CartActivity">
 
         <TextView
-            android:id="@+id/tv"
-            android:textSize="40sp"
+            android:text="장바구니 및 찜 화면"
             android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/btn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@color/blue_468FF"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">DeamHome</string>
 
-    // common
-    <string name="network_check_please_message">인터넷 연결을 확인해주세요</string>
+    <!-- all -->
+    <string name="all_network_check_please_message">인터넷 연결을 확인해주세요</string>
+    <string name="all_snackbar_default_action">확인</string>
+
 </resources>

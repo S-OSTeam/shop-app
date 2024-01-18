@@ -1,26 +1,22 @@
-package com.example.deamhome.presentation.signup
+package com.example.deamhome.presentation.auth.signup
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.deamhome.R
 import com.example.deamhome.common.base.BindingActivity
+import com.example.deamhome.common.view.Toaster
 import com.example.deamhome.databinding.ActivitySignUpBinding
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel: SignUpViewModel by viewModels { SignUpViewModel.Factory }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        observeUiState()
+        setupObserve()
     }
 
-    private fun observeUiState() {
+    private fun setupObserve() {
         viewModel.networkErrorEvent.observe(this@SignUpActivity) {
-            Toast.makeText(
-                this@SignUpActivity,
-                R.string.network_check_please_message,
-                Toast.LENGTH_SHORT,
-            ).show()
+            Toaster.showShort(this@SignUpActivity, R.string.all_network_check_please_message)
         }
         viewModel.uiState.observe(this) {
             when {

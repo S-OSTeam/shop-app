@@ -53,7 +53,7 @@ abstract class LoginDetectActivity<T : ViewDataBinding>(@LayoutRes layoutId: Int
         super.onSaveInstanceState(outState)
     }
 
-    // 이거는 그 화면의 UI 구성을 변경하는데만 사용할것. 로그인창으로 보내는거는 따로 직접 처리해야함.
+    // 이거는 화면의 UI 구성 변경하는데만 사용할것. 로그인창으로 보내는거는 따로 직접 처리해야함.
     open fun onStartAsLoginUser() {
         Log.d("mendel", "${this::class.java}: onStartAsLoginUser")
     }

@@ -1,4 +1,4 @@
-package com.example.deamhome.presentation.login
+package com.example.deamhome.presentation.auth.login
 
 import android.content.Context
 import android.content.Intent

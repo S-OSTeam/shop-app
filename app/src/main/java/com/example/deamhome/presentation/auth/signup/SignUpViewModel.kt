@@ -1,4 +1,4 @@
-package com.example.deamhome.presentation.signup
+package com.example.deamhome.presentation.auth.signup
 
 import android.util.Log
 import androidx.lifecycle.LiveData

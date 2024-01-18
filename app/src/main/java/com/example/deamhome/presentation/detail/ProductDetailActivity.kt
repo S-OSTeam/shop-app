@@ -7,7 +7,7 @@ import com.example.deamhome.R
 import com.example.deamhome.app.DeamHomeApplication
 import com.example.deamhome.common.base.LoginDetectActivity
 import com.example.deamhome.databinding.ActivityProductDetailBinding
-import com.example.deamhome.presentation.login.LoginActivity
+import com.example.deamhome.presentation.auth.login.LoginActivity
 import kotlinx.coroutines.launch
 
 class ProductDetailActivity :
