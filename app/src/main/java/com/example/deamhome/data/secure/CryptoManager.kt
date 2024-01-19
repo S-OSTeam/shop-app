@@ -2,6 +2,7 @@ package com.example.deamhome.data.secure
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import com.example.deamhome.BuildConfig
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -116,7 +117,7 @@ class CryptoManager {
         private const val PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7
         private const val TRANSFORMATION = "$ALGORITHM/$BLOCK_MODE/$PADDING"
         private const val KEYSTORE_TYPE = "AndroidKeyStore" // 이건 항상 고정임. 그래야 안드로이드 os의 키스토어에 접근 가능.
-        private const val KEYSTORE_ALIAS = "secret"
+        private const val KEYSTORE_ALIAS = BuildConfig.KEY_STORE_ALIAS
 
         private const val KEY_PURPOSE =
             KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT

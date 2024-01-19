@@ -14,6 +14,7 @@ plugins {
 val properties: Properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 val serverUrl = properties.getProperty("SERVER_URL")
+val keyStoreAlias = properties.getProperty("KEY_STORE_ALIAS")
 android {
     namespace = "com.example.deamhome"
     compileSdk = 34
@@ -27,6 +28,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SERVER_URL", serverUrl)
+        buildConfigField("String", "KEY_STORE_ALIAS", keyStoreAlias)
     }
 
     buildTypes {
