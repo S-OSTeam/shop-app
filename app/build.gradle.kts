@@ -7,6 +7,8 @@ plugins {
     kotlin("kapt")
     kotlin("plugin.serialization") version "1.9.21"
     id("kotlin-parcelize") // @Parcelize
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 val properties: Properties = Properties()
@@ -67,6 +69,10 @@ android {
 }
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1")) // 버전 관리 제어 라이브러리라고 함.
+    implementation("com.google.firebase:firebase-crashlytics") // 오류 추적용
+    implementation("com.google.firebase:firebase-analytics") // bom을 추가한 경우 여기에는 버전 명시 하지말라함.
+
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
