@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.apollographql.apollo3")
+    kotlin("kapt")
     kotlin("plugin.serialization") version "1.9.21"
     id("kotlin-parcelize") // @Parcelize
 }
@@ -24,12 +25,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SERVER_URL", serverUrl)
-    }
-    buildFeatures {
-        buildConfig = true
-    }
-    dataBinding {
-        enable = true
     }
 
     buildTypes {
@@ -63,6 +58,12 @@ android {
             packageName.set("com.example.deamhome.model")
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
+    dataBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -77,7 +78,7 @@ dependencies {
 
     // lifecycle
     implementation("androidx.activity:activity-ktx:1.7.2") // by viewModels()
-    implementation("androidx.fragment:fragment-ktx:1.6.0") // by activityViewModels()
+    implementation("androidx.fragment:fragment-ktx:1.6.2") // by activityViewModels()
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
 
@@ -107,4 +108,7 @@ dependencies {
     // dataStore
     implementation("androidx.datastore:datastore:1.0.0")
     implementation(kotlin("reflect"))
+
+    // Timber
+    implementation("com.jakewharton.timber:timber:4.7.1")
 }

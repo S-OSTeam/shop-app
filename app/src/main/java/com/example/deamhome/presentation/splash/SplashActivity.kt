@@ -12,7 +12,6 @@ import com.example.deamhome.app.DeamHomeApplication
 import com.example.deamhome.presentation.auth.login.LoginActivity
 import com.example.deamhome.presentation.main.MainActivity
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -31,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
                     // 다이얼로그에서 확인이나 취소 누르면 이 스플래시 액티비티는 종료시켜야 한다.
                 } else {
                     if (!hasLoginToken!!) { // 토큰 불통과돼서 로그인 해야 하는 경우.
-                        startActivity(LoginActivity.getIntent(this@SplashActivity))
+                        startActivity(LoginActivity.getIntent(this@SplashActivity, true))
                     } else {
                         startActivity(MainActivity.getIntent(this@SplashActivity))
                     }
@@ -63,7 +62,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private suspend fun checkAppVersion(): Boolean {
-        delay(2000L) // 임시로 줬음. 나중에 제거할 예정
+//        delay(2000L) // 임시로 줬음. 나중에 제거할 예정
         return true
     }
 

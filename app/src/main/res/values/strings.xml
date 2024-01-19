@@ -3,6 +3,13 @@
 
     <!-- all -->
     <string name="all_network_check_please_message">인터넷 연결을 확인해주세요</string>
+    <string name="all_back_key_check_message">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.</string>
+
     <string name="all_snackbar_default_action">확인</string>
+    <string name="bottom_navigation_home">홈</string>
+    <string name="bottom_navigation_search">검색</string>
+    <string name="bottom_navigation_category">카테고리</string>
+    <string name="bottom_navigation_cart">장바구니</string>
+    <string name="bottom_navigation_my_page">마이페이지</string>
 
 </resources>

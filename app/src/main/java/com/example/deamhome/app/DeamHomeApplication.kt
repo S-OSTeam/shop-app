@@ -1,7 +1,9 @@
 package com.example.deamhome.app
 
 import android.app.Application
+import com.example.deamhome.BuildConfig
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 
 class DeamHomeApplication : Application() {
     private lateinit var container: DIContainer
@@ -11,6 +13,10 @@ class DeamHomeApplication : Application() {
         container = DIContainer(this)
         _instance = this
         _isLogin = container.isLogin
+        // 디버그 모드로 빌드한 경우에만 팀버가 동작하도록
+        if (BuildConfig.DEBUG_MODE) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     companion object {
