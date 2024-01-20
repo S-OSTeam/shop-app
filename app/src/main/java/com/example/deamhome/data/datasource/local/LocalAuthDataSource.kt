@@ -1,9 +1,9 @@
 package com.example.deamhome.data.datasource.local
 
 import androidx.datastore.core.DataStore
-import com.example.deamhome.data.model.Token
-import com.example.deamhome.data.model.Token.Companion.EMPTY
-import com.example.deamhome.data.model.Token.Companion.EMPTY_TOKEN
+import com.example.deamhome.data.model.response.Token
+import com.example.deamhome.data.model.response.Token.Companion.EMPTY
+import com.example.deamhome.data.model.response.Token.Companion.EMPTY_TOKEN
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

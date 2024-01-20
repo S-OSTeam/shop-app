@@ -1,6 +1,6 @@
 package com.example.deamhome.domain.repository
 
-import com.example.deamhome.data.model.Token
+import com.example.deamhome.data.model.response.Token
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {

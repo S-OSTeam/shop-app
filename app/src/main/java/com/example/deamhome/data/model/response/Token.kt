@@ -1,4 +1,4 @@
-package com.example.deamhome.data.model
+package com.example.deamhome.data.model.response
 
 import kotlinx.serialization.Serializable
 

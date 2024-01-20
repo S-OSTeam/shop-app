@@ -16,7 +16,7 @@ class LoggingApolloInterceptor : ApolloInterceptor {
         chain: ApolloInterceptorChain,
     ): Flow<ApolloResponse<D>> {
         return chain.proceed(request).onEach { response ->
-            log("$HTTP_LOG_TAG - ${request.operation.name()}: ${response.data}", LogLevel.E)
+            log(HTTP_LOG_TAG, "${request.operation.name()}: ${response.data}", LogLevel.E)
         }
     }
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.deamhome.R
 import com.example.deamhome.app.DeamHomeApplication
 import com.example.deamhome.common.base.BindingActivity
-import com.example.deamhome.data.model.Token
+import com.example.deamhome.data.model.response.Token
 import com.example.deamhome.databinding.ActivityLoginBinding
 import com.example.deamhome.presentation.main.MainActivity
 import kotlinx.coroutines.launch

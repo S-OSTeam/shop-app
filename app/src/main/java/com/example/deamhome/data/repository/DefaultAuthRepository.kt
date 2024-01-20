@@ -2,7 +2,7 @@ package com.example.deamhome.data.repository
 
 import com.example.deamhome.data.datasource.local.LocalAuthDataSource
 import com.example.deamhome.data.datasource.network.NetworkAuthDataSource
-import com.example.deamhome.data.model.Token
+import com.example.deamhome.data.model.response.Token
 import com.example.deamhome.domain.repository.AuthRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

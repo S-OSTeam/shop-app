@@ -43,5 +43,8 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
                 SplashViewModel.Event.None -> {}
             }
         }
+        viewModel.networkErrorEvent.observe(this) {
+            // 나중에 다이얼로그를 띄워서 종료를 시키든 말든 해야함.
+        }
     }
 }

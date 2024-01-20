@@ -12,7 +12,7 @@ import com.example.deamhome.data.apollo.interceptor.LoggingApolloInterceptor
 import com.example.deamhome.data.datasource.local.LocalAuthDataSource
 import com.example.deamhome.data.datasource.network.NetworkAuthDataSource
 import com.example.deamhome.data.datasource.network.NetworkProductDataSource
-import com.example.deamhome.data.model.TokenSerializer
+import com.example.deamhome.data.model.response.TokenSerializer
 import com.example.deamhome.data.repository.DefaultAuthRepository
 import com.example.deamhome.data.repository.DefaultProductRepository
 import com.example.deamhome.data.secure.CryptoManager

@@ -4,16 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.apollographql.apollo3.exception.ApolloNetworkException
 import com.example.deamhome.app.DeamHomeApplication
 import com.example.deamhome.common.base.BaseViewModel
 import com.example.deamhome.domain.repository.AuthRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.zip
+import java.io.IOException
 
 class SplashViewModel(authRepository: AuthRepository) : BaseViewModel() {
     val event: StateFlow<Event> =
@@ -31,6 +34,10 @@ class SplashViewModel(authRepository: AuthRepository) : BaseViewModel() {
                 else -> {
                     Event.NavigateToMain
                 }
+            }
+        }.catch {
+            if (it is IOException || it is ApolloNetworkException) {
+                _networkErrorEvent.emit(true)
             }
         }.stateIn(viewModelScope, SharingStarted.Eagerly, Event.None)
 

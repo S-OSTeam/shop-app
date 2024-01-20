@@ -1,4 +1,4 @@
-package com.example.deamhome.data.model
+package com.example.deamhome.data.model.response
 
 import androidx.datastore.core.Serializer
 import com.example.deamhome.data.secure.CryptoManager
