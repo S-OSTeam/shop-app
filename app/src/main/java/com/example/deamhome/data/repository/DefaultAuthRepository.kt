@@ -24,7 +24,8 @@ class DefaultAuthRepository(
     // 토큰을 갱신하는데 사용
     override suspend fun refreshToken() {
         withContext(dispatcher) {
-            val token = networkAuthDataSource.refreshToken(getToken()) // 여기도 나중에 ApiResponse가 Success인 경우만 update하도록 수정해야함.
+            val token =
+                networkAuthDataSource.refreshToken(getToken()) // 여기도 나중에 ApiResponse가 Success인 경우만 update하도록 수정해야함.
             localAuthDataSource.updateToken(token)
         }
     }
@@ -32,6 +33,12 @@ class DefaultAuthRepository(
     override suspend fun removeToken() {
         withContext(dispatcher) {
             localAuthDataSource.removeToken()
+        }
+    }
+
+    override suspend fun updateToken(token: Token) {
+        withContext(dispatcher) {
+            localAuthDataSource.updateToken(token)
         }
     }
 }

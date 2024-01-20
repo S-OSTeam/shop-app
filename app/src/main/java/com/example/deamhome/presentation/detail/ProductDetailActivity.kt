@@ -16,7 +16,7 @@ class ProductDetailActivity :
         super.onCreate(savedInstanceState)
         binding.tv.setOnClickListener {
             lifecycleScope.launch {
-                DeamHomeApplication.container.localAuthDataSource.removeToken()
+                DeamHomeApplication.container.authRepository.removeToken()
             }
         }
     }

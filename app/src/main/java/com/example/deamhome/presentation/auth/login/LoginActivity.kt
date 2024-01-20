@@ -20,7 +20,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         binding.btnLoginSuccess.setOnClickListener {
             lifecycleScope.launch {
                 // 나중에 뷰모델로 분리할거임.
-                DeamHomeApplication.container.localAuthDataSource.updateToken(Token("tmp", "tmp"))
+                DeamHomeApplication.container.authRepository.updateToken(Token("tmp", "tmp"))
                 // 로그인이 성공한다면,
                 if (moveToMain) {
                     startActivity(MainActivity.getIntent(this@LoginActivity))

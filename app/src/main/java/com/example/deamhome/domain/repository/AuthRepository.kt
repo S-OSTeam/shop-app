@@ -8,4 +8,5 @@ interface AuthRepository {
     suspend fun getToken(): Token
     suspend fun refreshToken()
     suspend fun removeToken()
+    suspend fun updateToken(token: Token)
 }

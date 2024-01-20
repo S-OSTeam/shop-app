@@ -1,6 +1,7 @@
 package com.example.deamhome.app
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.deamhome.BuildConfig
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
@@ -17,6 +18,7 @@ class DeamHomeApplication : Application() {
         if (BuildConfig.DEBUG_MODE) {
             Timber.plant(Timber.DebugTree())
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) // 다크모드 일단은 방지
     }
 
     companion object {

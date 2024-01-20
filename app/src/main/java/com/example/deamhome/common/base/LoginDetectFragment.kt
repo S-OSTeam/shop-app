@@ -28,8 +28,7 @@ abstract class LoginDetectFragment<T : ViewDataBinding>(@LayoutRes private val l
         super.onViewCreated(view, savedInstanceState)
         if (_isLatestLoginUser == null) {
             viewLifecycleOwner.lifecycleScope.launch {
-                _isLatestLoginUser =
-                    DeamHomeApplication.container.localAuthDataSource.isLogin.first()
+                _isLatestLoginUser = DeamHomeApplication.container.isLogin.first()
             }
         }
     }

@@ -30,7 +30,7 @@ class MyPageFragment : LoginDetectFragment<FragmentMyPageBinding>(R.layout.fragm
         binding.tvUserName.setOnClickListener {
             binding.tvUserName.showSnackbar("로그아웃됨", "확인")
             viewLifecycleOwner.lifecycleScope.launch {
-                DeamHomeApplication.container.localAuthDataSource.removeToken()
+                DeamHomeApplication.container.authRepository.removeToken()
             }
         }
     }

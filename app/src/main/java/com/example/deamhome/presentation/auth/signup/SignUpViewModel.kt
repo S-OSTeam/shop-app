@@ -1,6 +1,5 @@
 package com.example.deamhome.presentation.auth.signup
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.deamhome.app.DeamHomeApplication
 import com.example.deamhome.common.base.BaseViewModel
+import com.example.deamhome.common.util.log
 import com.example.deamhome.domain.model.ApiResponse
 import com.example.deamhome.domain.model.Test
 import com.example.deamhome.domain.repository.ProductRepository
@@ -38,7 +38,7 @@ class SignUpViewModel(
             _uiState.value = _uiState.value?.copy(loading = true)
             when (val response = productRepository.test()) {
                 is ApiResponse.Success -> {
-                    Log.d("mendel", "success: $${response.body}")
+                    log("success: $${response.body}")
                     _uiState.value = _uiState.value?.copy(
                         loading = false,
                         test = response.body ?: UiState.EMPTY_TEST,
@@ -46,17 +46,17 @@ class SignUpViewModel(
                 }
 
                 is ApiResponse.Failure -> {
-                    Log.d("mendel", "success: $${response.responseCode}. ${response.error}")
+                    log("success: $${response.responseCode}. ${response.error}")
                     _uiState.value = _uiState.value?.copy(loading = false, error = true)
                 }
 
                 is ApiResponse.NetworkError -> {
-                    Log.d("mendel", "network: $${response.message}")
+                    log("network: $${response.message}")
                     _uiState.value = _uiState.value?.copy(loading = false, error = true)
                 }
 
                 is ApiResponse.Unexpected -> {
-                    Log.d("mendel", "unexpected: $${response.t}")
+                    log("unexpected: $${response.t}")
                     _uiState.value = _uiState.value?.copy(loading = false, error = true)
                 }
             }

@@ -1,12 +1,13 @@
 package com.example.deamhome.data.apollo
 
-import android.util.Log
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Mutation
 import com.apollographql.apollo3.api.Query
 import com.apollographql.apollo3.exception.ApolloException
 import com.apollographql.apollo3.exception.ApolloHttpException
 import com.apollographql.apollo3.exception.ApolloNetworkException
+import com.example.deamhome.common.util.LogLevel
+import com.example.deamhome.common.util.log
 import com.example.deamhome.domain.model.ApiResponse
 
 // 요청하려는 Mutation이나 Query를 sealed class로 감싸서 뱉도록 만드는 녀석
@@ -17,7 +18,7 @@ suspend fun <T : Mutation.Data, R : Any> ApolloClient.executeMutation(
     try {
         val response = this.mutation(mutation).execute()
         if (response.hasErrors()) {
-            Log.w("DeamHome", "Failed with no exception: ${response.errors?.get(0)?.message}")
+            log("Failed with no exception: ${response.errors?.get(0)?.message}", LogLevel.W)
             return ApiResponse.Unexpected(null)
         }
         val data = response.data
@@ -38,7 +39,7 @@ suspend fun <T : Query.Data, R : Any> ApolloClient.executeQuery(
     try {
         val response = this.query(query).execute()
         if (response.hasErrors()) {
-            Log.w("DeamHome", "Failed with no exception: ${response.errors?.get(0)?.message}")
+            log("Failed with no exception: ${response.errors?.get(0)?.message}", LogLevel.W)
             return ApiResponse.Unexpected(null)
         }
         val data = response.data
