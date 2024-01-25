@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.example.deamhome.R
 import com.google.android.material.chip.Chip
 
 @BindingAdapter("imageUrl", "placeholder", requireAll = false)
@@ -16,6 +17,7 @@ fun ImageView.setImageUrl(url: String?, placeholder: Drawable? = null) {
         .load(url)
         .placeholder(placeholder)
         .error(placeholder)
+        .fallback(R.drawable.fallback_tmp_image)
         .into(this)
 }
 
@@ -24,7 +26,9 @@ fun ImageView.setImageUrl(uri: Uri?, placeholder: Drawable? = null) {
     uri?.let {
         Glide.with(context)
             .load(it)
+            .placeholder(placeholder)
             .error(placeholder)
+            .fallback(R.drawable.fallback_tmp_image)
             .into(this)
     }
 }
