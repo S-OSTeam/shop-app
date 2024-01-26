@@ -97,7 +97,6 @@ class CryptoManager {
             val remainingBytes = inputStream.readBytes()
             val lastChunk = cipher.doFinal(remainingBytes) // doFinal로 마지막 블록에 대한 복호화
             outputStream.write(lastChunk)
-
             outputStream.toByteArray()
         }
     }

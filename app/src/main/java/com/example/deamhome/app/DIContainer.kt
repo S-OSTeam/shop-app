@@ -15,6 +15,7 @@ import com.example.deamhome.data.datasource.network.NetworkProductDataSource
 import com.example.deamhome.data.model.response.TokenSerializer
 import com.example.deamhome.data.repository.DefaultAuthRepository
 import com.example.deamhome.data.repository.DefaultProductRepository
+import com.example.deamhome.data.repository.DefaultUserRepository
 import com.example.deamhome.data.secure.CryptoManager
 import com.example.deamhome.domain.repository.AuthRepository
 
@@ -57,4 +58,6 @@ class DIContainer(
         NetworkProductDataSource(ProductApolloService(productApolloClient))
 
     val productRepository = DefaultProductRepository(networkProductDataSource)
+
+    val userRepository = DefaultUserRepository()
 }

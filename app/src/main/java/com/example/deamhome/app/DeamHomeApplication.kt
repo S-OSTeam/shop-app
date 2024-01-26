@@ -3,7 +3,9 @@ package com.example.deamhome.app
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.deamhome.BuildConfig
-import kotlinx.coroutines.flow.Flow
+import com.example.deamhome.common.util.log
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
 class DeamHomeApplication : Application() {
@@ -11,9 +13,10 @@ class DeamHomeApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        log("mendel", "application create")
         container = DIContainer(this)
         _instance = this
-        _isLogin = container.isLogin
+        log("mendel", "application create ${runBlocking { container.authRepository.isLogin.first() }}")
         // 디버그 모드로 빌드한 경우에만 팀버가 동작하도록
         if (BuildConfig.DEBUG_MODE) {
             Timber.plant(Timber.DebugTree())
@@ -31,11 +34,5 @@ class DeamHomeApplication : Application() {
         // 이건 나중에 힐트 적용하면 없어질 예정임.
         val container: DIContainer
             get() = instance.container
-
-        // 만약 로그인 정보에 대한 관찰이 필요하다면, 꼭 AuthRepository를 주입받지 않아도 사용할 수 있도록 열어둠.
-        // 사실 뷰모델에서 관찰하는게 좀 더 좋겠지만 그러면 좀 쓸데없이 코드가 길어질듯. 너무 남용은 하지말것.
-        private lateinit var _isLogin: Flow<Boolean>
-        val isLogin: Flow<Boolean>
-            get() = _isLogin
     }
 }

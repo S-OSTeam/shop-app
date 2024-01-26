@@ -15,14 +15,20 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     }
 
     private fun setupObserve() {
-        viewModel.networkErrorEvent.observe(this@SignUpActivity) {
-            Toaster.showShort(this@SignUpActivity, R.string.all_network_check_please_message)
-        }
+        viewModel.event.observe(this@SignUpActivity) { handleEvent(it) }
         viewModel.uiState.observe(this) {
             when {
                 it.loading -> {}
                 it.error -> {}
                 else -> {}
+            }
+        }
+    }
+
+    private fun handleEvent(event: SignUpViewModel.Event) {
+        when (event) {
+            SignUpViewModel.Event.NetworkErrorEvent -> {
+                Toaster.showShort(this@SignUpActivity, R.string.all_network_check_please_message)
             }
         }
     }

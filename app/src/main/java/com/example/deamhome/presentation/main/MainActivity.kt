@@ -7,7 +7,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.fragment.app.commit
 import com.example.deamhome.R
-import com.example.deamhome.common.base.LoginDetectActivity
+import com.example.deamhome.common.base.BindingActivity
 import com.example.deamhome.common.view.BackKeyHandler
 import com.example.deamhome.databinding.ActivityMainBinding
 import com.example.deamhome.presentation.main.cart.CartActivity
@@ -16,7 +16,7 @@ import com.example.deamhome.presentation.main.home.HomeFragment
 import com.example.deamhome.presentation.main.mypage.MyPageFragment
 import com.example.deamhome.presentation.main.search.SearchActivity
 
-class MainActivity : LoginDetectActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val viewModel: MainViewModel by viewModels()
     private val backKeyHandler = BackKeyHandler(this)
 
