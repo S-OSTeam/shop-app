@@ -31,32 +31,45 @@ class MyPageViewModel(
     val event: SharedFlow<Event>
         get() = _event.asSharedFlow()
 
-    // uiState가 위에 와야한다.
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
+    // uiState가 위에 와야 아래 코드에서 널 포인터 예외 안뜸.
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState(isLoading = true))
     val uiState: StateFlow<UiState>
         get() = _uiState
 
-    // 여기 별도로 저장해놔야 액티비티가 재개될때 profileState가 다시 별도의 네트워크 요청없이 수집할 수 있음.
-    private val profile: MutableStateFlow<UserProfile?> = MutableStateFlow(null)
+    // 유저 정보 조회에 대한 UiState
+    private val _profileUiState: MutableStateFlow<ProfileUiState> = MutableStateFlow(
+        ProfileUiState(
+            isLoading = false,
+            isError = false,
+            data = UserProfile.EMPTY,
+        ),
+    )
 
+    // 화면 전체에 대한 UiState인 _uiState 변수를 업데이트 해주는 녀석
     // 로그인 여부가 바뀌면 자동으로 profileState가 변경된다.
-    private val profileState =
-        combine(profile, authRepository.isLogin) { profile, isLogin ->
-            log("mendel", "combine $profile, $isLogin")
-            delay(3000L)
-            if (profile == null) return@combine
-            when (isLogin) {
-                true -> _uiState.update { uiState ->
-                    uiState.copy(data = UserProfile(profile.name, profile.profile), isLogin = true)
-                }
+    // 화면의 모든 요소들의 변화를 받고 처리해서 UiState를 업데이트해주는 단일점임.
+    private val combineState =
+        combine(_profileUiState, authRepository.isLogin) { profileUiState, isLogin ->
+            log("mendel", "combine $profileUiState, $isLogin")
+            if (profileUiState.isLoading) return@combine _uiState.update { it.copy(isLoading = true) }
+            if (profileUiState.isError) {
+                return@combine _uiState.update { it.copy(isLoading = false, isError = true) }
+            }
+            _uiState.update { uiState ->
+                when (isLogin) {
+                    true -> uiState.copy(
+                        isLoading = false,
+                        isError = false,
+                        isLogin = true,
+                        profile = profileUiState.data,
+                    )
 
-                false -> {
-                    _uiState.update { uiState ->
-                        uiState.copy(
-                            data = ANONYMOUS_USER_PROFILE,
-                            isLogin = false,
-                        )
-                    }
+                    false -> uiState.copy(
+                        isLoading = false,
+                        isError = false,
+                        isLogin = false,
+                        profile = ANONYMOUS_USER_PROFILE,
+                    )
                 }
             }
         }.stateIn(viewModelScope, SharingStarted.Eagerly, Unit)
@@ -68,15 +81,16 @@ class MyPageViewModel(
 
     fun fetchUserProfile() {
         viewModelScope.launch {
-            if (_uiState.value.isLoading && profile.value != null) return@launch
-            _uiState.update { it.copy(isLoading = true) }
-            delay(2000L)
+            if (_profileUiState.value.isLoading) return@launch
+            _profileUiState.update { it.copy(isLoading = true) }
+            delay(1000L)
             when (val response = userRepository.fetchUserProfile()) {
                 is ApiResponse.Success -> {
-                    if (response.body != null) {
-                        profile.update { response.body }
+                    response.body?.let { data ->
+                        _profileUiState.update {
+                            it.copy(isLoading = false, isError = false, data = data)
+                        }
                     }
-                    _uiState.update { it.copy(isLoading = false, isError = false) }
                 }
 
                 is ApiResponse.Failure -> {
@@ -84,38 +98,41 @@ class MyPageViewModel(
                         // 로그인창으로 보내기. 필요하다면,
                         _event.emit(Event.NavigateToLogin)
                     }
-                    _uiState.update { it.copy(isLoading = false, isError = true) }
+                    _profileUiState.update { it.copy(isLoading = false, isError = true) }
                 }
 
                 is ApiResponse.NetworkError -> {
                     _event.emit(Event.NetworkErrorEvent) // 네트워크 에러는 UI의 상태가 변경된다기 보다, 단발적으로 유저에게 알린다.
-                    _uiState.update { it.copy(isLoading = false) }
+                    _profileUiState.update { it.copy(isLoading = false, isError = false) }
                 }
 
-                is ApiResponse.Unexpected -> _uiState.update {
-                    it.copy(isLoading = false, isError = true)
+                is ApiResponse.Unexpected -> {
+                    _profileUiState.update { it.copy(isLoading = false, isError = false) }
                 }
             }
         }
     }
 
     data class UiState(
-        val isLoading: Boolean = true,
+        val isLoading: Boolean = false,
         val isError: Boolean = false,
         val isLogin: Boolean = false,
-        val data: UserProfile = UserProfile("", ""),
+        val profile: UserProfile = UserProfile.EMPTY,
     )
 
-    data class UserProfileUiState(
+    data class ProfileUiState(
         val isLoading: Boolean,
         val isError: Boolean,
-        val isLogin: Boolean,
         val data: UserProfile,
     )
 
+    data class ListUiState(
+        val isLoading: Boolean,
+        val isError: Boolean,
+        val data: List<Any>,
+    )
+
     sealed interface Event {
-        data object ChangeAsLoginUser : Event
-        data object ChangeAsAnonymousUser : Event
         data object NetworkErrorEvent : Event
         data object NavigateToLogin : Event
     }

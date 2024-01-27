@@ -16,7 +16,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private var moveToMain: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        moveToMain = intent.getBooleanExtra(MOVE_MAIN_AFTER_LOGIN, false) // 액티비티 시작시 전달받은 인텐트는 회전을 해도 그대로 받음.
+        moveToMain = intent.getBooleanExtra(
+            MOVE_MAIN_AFTER_LOGIN,
+            false,
+        ) // 액티비티 시작시 전달받은 인텐트는 회전을 해도 그대로 받음.
         binding.btnLoginSuccess.setOnClickListener {
             lifecycleScope.launch {
                 // 나중에 뷰모델로 분리할거임.

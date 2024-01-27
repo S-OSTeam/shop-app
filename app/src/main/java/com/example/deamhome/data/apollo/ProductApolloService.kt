@@ -7,8 +7,8 @@ import com.example.deamhome.model.TestMutation
 
 class ProductApolloService(private val apolloClient: ApolloClient) {
     suspend fun getTest(): ApiResponse<Test> {
-        return apolloClient.executeMutation(TestMutation()) {
-            Test(it?.test ?: "")
+        return apolloClient.executeMutation(TestMutation()) { testMutation ->
+            Test(testMutation?.test ?: "")
         }
     }
 }
