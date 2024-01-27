@@ -26,7 +26,6 @@ class CategoryBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // 작업하세요
     }
 
     override fun onDestroyView() {

@@ -7,16 +7,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.deamhome.app.DeamHomeApplication
-import com.example.deamhome.common.base.BaseViewModel
 import com.example.deamhome.common.util.log
 import com.example.deamhome.domain.model.ApiResponse
 import com.example.deamhome.domain.model.Test
 import com.example.deamhome.domain.repository.ProductRepository
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
     private val productRepository: ProductRepository,
-) : BaseViewModel() {
+) : ViewModel() {
 
     data class UiState(
         val loading: Boolean = true,
@@ -28,7 +29,12 @@ class SignUpViewModel(
         }
     }
 
-    private val _uiState: MutableLiveData<UiState> = MutableLiveData(UiState())
+    private val _event: MutableSharedFlow<Event> = MutableSharedFlow<Event>()
+    val event: SharedFlow<Event>
+        get() = _event
+
+    private
+    val _uiState: MutableLiveData<UiState> = MutableLiveData(UiState())
     val uiState: LiveData<UiState>
         get() = _uiState
 
@@ -52,7 +58,7 @@ class SignUpViewModel(
 
                 is ApiResponse.NetworkError -> {
                     log("network: $${response.message}")
-                    _uiState.value = _uiState.value?.copy(loading = false, error = true)
+                    _event.emit(Event.NetworkErrorEvent)
                 }
 
                 is ApiResponse.Unexpected -> {
@@ -61,6 +67,10 @@ class SignUpViewModel(
                 }
             }
         }
+    }
+
+    sealed interface Event {
+        data object NetworkErrorEvent : Event
     }
 
     companion object {

@@ -45,6 +45,6 @@ class AuthorizationInterceptor(
 
     companion object {
         private const val AUTHORIZATION = "Authorization"
-        private const val TOKEN_PREFIX = "DBearer"
+        private const val TOKEN_PREFIX = "Bearer"
     }
 }

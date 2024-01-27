@@ -1,6 +1,7 @@
 package com.example.deamhome.data.model.response
 
 import androidx.datastore.core.Serializer
+import com.example.deamhome.common.util.log
 import com.example.deamhome.data.secure.CryptoManager
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -17,11 +18,13 @@ class TokenSerializer(
         val decryptedBytes = cryptoManager.decrypt(input) // 복호화한 문자열 얻음
         return try {
             // 복호화한 문자열을 kotlin-serialization을 써서 데이터클래스로 파싱.
+            log("mendel", "복호화 시도")
             Json.decodeFromString(
                 deserializer = Token.serializer(),
                 string = decryptedBytes.decodeToString(),
             )
         } catch (e: SerializationException) {
+            log("mendel", "복호화 실패로, 기본값 줌")
             e.printStackTrace()
             defaultValue
         }
