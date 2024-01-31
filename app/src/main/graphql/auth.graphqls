@@ -1,4 +1,4 @@
-input signUpRequest{
+input SignUpRequest{
     userId: String!
     pwd: String!
     confirmPwd: String!
@@ -12,7 +12,7 @@ input signUpRequest{
 
     email: String!
     phone: String
-    receiveMail: Boolean!
+    receiveMail: Boolean
 
     snsId: String
     sns: SNS
@@ -20,7 +20,7 @@ input signUpRequest{
     userName: String!
 }
 
-input loginRequest{
+input LoginRequest{
     pwd: String!
     userId: String
     email: String

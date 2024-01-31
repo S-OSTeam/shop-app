@@ -1,0 +1,44 @@
+input CartRequest {
+    # 아이템 id
+    itemId: String!
+    # 장바구니 담은 수
+    cnt: Int! @Min(value : 0)
+}
+
+input CartDeleteRequest{
+
+    # userID
+    itemId: String!
+}
+
+input CartCheckListRequest{
+
+    # 장바구니 체크여부 리스트
+    checkList: [Boolean]!
+}
+
+type CartItemResponse{
+    # 아이템 id
+    itemId: String!
+    # 장바구니에 담은 수
+    cnt: Int!
+    # 장바구니 아이템 체크 여부
+    check: Boolean!
+}
+
+type CartResponse{
+    # 아이템 제목
+    title: String!
+    # 아이템 내용
+    content: String!
+    # 아이템 가격
+    price: Int!
+    # 대표 이미지 1장
+    image: String!
+    # 아이템 id
+    itemId: String!
+    # 장바구니 담은 수
+    cnt: Int!
+    # 장바구니 체크 여부
+    check: Boolean!
+}

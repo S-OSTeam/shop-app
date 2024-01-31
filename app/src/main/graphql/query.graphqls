@@ -1,13 +1,31 @@
 type Query {
     ping: String @deprecated(reason: "https://stackoverflow.com/questions/59868942/graphql-a-schema-must-have-a-query-operation-defined")
 
-    findCategoryByTitle(title: String): ItemCategoryResponseDTO
-    getItemCategoriesContainsTitle(title: String): [ItemCategoryResponseDTO]
-    getItemDetailCategoryByTitle(title: String): ItemDetailCategoryResponseDTO
+    # PublicId 로 ItemCategory 검색
+    findItemCategoryByPublicId(publicId: Long @Min(value : 1)) : ItemCategoryResponse
+    # title 로 ItemCategory 검색
+    findItemCategoryByTitle(title: String @NotBlank): ItemCategoryResponse
+    # title 을 포함하는 ItemCategory 검색
+    findItemCategoriesContainTitle(title: String @NotBlank) : [ItemCategoryResponse]
+    # 모든 ItemCategory 를 tree 형태로 검색
+    findAllItemCategoriesTree: [ItemCategoryTreeResponse]
 
-    getItemsContainsTitle(title: String): [ItemResponseDTO]
-    getItemsByOption(categoryTitle: String, detailTitle: String, itemTitle: String): [ItemResponseDTO]
+    # title 을 포함하는 Item 검색
+    findItemsContainTitle(title: String @NotBlank): [ItemResponse]
+    # CategoryTitle 로 Item 검색
+    findItemsByCategoryTitle(categoryTitle: String @NotBlank): [ItemResponse]
+    # PublicId 로 Item 검색
+    findItemsByCategoryPublicId(categoryPublicId: Long @Min(value : 1)): [ItemResponse]
+    # CategoryPublicId 로 카테고리 하위의 모든 Item 검색
+    findItemByPublicId(publicId: Long @Min(value : 1)): ItemResponse
 
     kakaoLoginUrl: String
     kakaoUserInfo(token: String): KakaoUserInfo
+
+    #장바구니 전체 리스트 가져오기
+    getAllCartList: [CartResponse]
+    # 장바구니 총액 계산
+    calculateCartTotal: Int
+
+    getWishList(request: WishListPageRequest): [ItemResponse]
 }

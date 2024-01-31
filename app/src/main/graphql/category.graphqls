@@ -1,17 +1,19 @@
-input CategoryRequestDTO {
-    title: String!
+directive @NotBlank(message : String = "graphql.validation.NotBlank.message") on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @NotEmpty(message : String = "graphql.validation.NotEmpty.message") on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @Min(value : Int! = 0, message : String = "graphql.validation.Min.message") on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+input ItemCategoryRequest {
+    title: String! @NotBlank
+    parentPublicId: Long @Min(value : 1)
 }
 
-input DetailCategoryRequestDTO {
+type ItemCategoryResponse{
     title: String!
-    categoryTitle: String!
+    publicId: Long!
+    parentPublicId: Long
 }
 
-type ItemCategoryResponseDTO{
-    title: String!,
-    itemDetailCategories: [ItemDetailCategoryResponseDTO]!
-}
-
-type ItemDetailCategoryResponseDTO{
+type ItemCategoryTreeResponse{
     title: String!
+    children: [ItemCategoryTreeResponse]!
 }

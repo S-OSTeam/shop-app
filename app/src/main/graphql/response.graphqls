@@ -1,4 +1,4 @@
-type tokenResponse{
+type TokenResponse{
     accessToken: String
     refreshToken: String
     userId: String
