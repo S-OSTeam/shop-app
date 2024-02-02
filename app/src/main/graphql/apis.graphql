@@ -1,9 +1,5 @@
-mutation SignUpTest($request: signUpRequest!) {
+mutation SignUpMutation($request: SignUpRequest!) {
     signUp(request:$request)
-}
-
-mutation Test{
-    test
 }
 
 mutation ImageUploadToServer($image: Upload!){

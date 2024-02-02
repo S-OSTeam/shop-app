@@ -3,7 +3,9 @@ package com.example.deamhome.data.repository
 import com.example.deamhome.data.datasource.local.LocalAuthDataSource
 import com.example.deamhome.data.datasource.network.NetworkAuthDataSource
 import com.example.deamhome.data.model.response.Token
+import com.example.deamhome.domain.model.ApiResponse
 import com.example.deamhome.domain.repository.AuthRepository
+import com.example.deamhome.model.type.SignUpRequest
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -39,6 +41,12 @@ class DefaultAuthRepository(
     override suspend fun updateToken(token: Token) {
         withContext(dispatcher) {
             localAuthDataSource.updateToken(token)
+        }
+    }
+
+    override suspend fun signUp(signUpRequest: SignUpRequest): ApiResponse<String> {
+        return withContext(dispatcher) {
+            networkAuthDataSource.signUp(signUpRequest)
         }
     }
 }

@@ -19,7 +19,7 @@ suspend fun <T : Mutation.Data, R : Any> ApolloClient.executeMutation(
     try {
         val response = this.mutation(mutation).execute()
         if (response.hasErrors()) {
-            log("Failed with no exception: ${response.errors?.get(0)?.message}", LogLevel.W)
+            log("Failed with no exception: ${response.errors?.joinToString()}", LogLevel.W)
             return ApiResponse.Unexpected(null)
         }
         val data = response.data
