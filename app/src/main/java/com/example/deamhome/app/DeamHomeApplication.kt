@@ -1,25 +1,26 @@
 package com.example.deamhome.app
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.deamhome.BuildConfig
 import com.example.deamhome.common.util.log
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
 class DeamHomeApplication : Application() {
     private lateinit var container: DIContainer
 
+    @SuppressLint("HardwareIds")
     override fun onCreate() {
         super.onCreate()
-        log("mendel", "application create")
-        container = DIContainer(this)
+        val deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+        container = DIContainer(this, deviceId)
         _instance = this
-        log("mendel", "application create ${runBlocking { container.authRepository.isLogin.first() }}")
         // 디버그 모드로 빌드한 경우에만 팀버가 동작하도록
         if (BuildConfig.DEBUG_MODE) {
             Timber.plant(Timber.DebugTree())
+            log(message = "deviceId: $deviceId")
         }
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) // 다크모드 일단은 방지
     }

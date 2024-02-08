@@ -9,6 +9,7 @@ import com.example.deamhome.app.DeamHomeApplication
 import com.example.deamhome.common.base.BindingActivity
 import com.example.deamhome.data.model.response.Token
 import com.example.deamhome.databinding.ActivityLoginBinding
+import com.example.deamhome.presentation.auth.signup.SignUpActivity
 import com.example.deamhome.presentation.main.MainActivity
 import kotlinx.coroutines.launch
 
@@ -30,6 +31,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 }
                 finish()
             }
+        }
+
+        binding.btnSignup.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, SignUpActivity::class.java))
         }
     }
 

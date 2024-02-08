@@ -5,7 +5,6 @@ import com.apollographql.apollo3.api.Mutation
 import com.apollographql.apollo3.api.Query
 import com.apollographql.apollo3.exception.ApolloException
 import com.apollographql.apollo3.exception.ApolloHttpException
-import com.apollographql.apollo3.exception.ApolloNetworkException
 import com.example.deamhome.common.util.LogLevel
 import com.example.deamhome.common.util.log
 import com.example.deamhome.common.util.reportNonSeriousException
@@ -20,7 +19,7 @@ suspend fun <T : Mutation.Data, R : Any> ApolloClient.executeMutation(
         val response = this.mutation(mutation).execute()
         if (response.hasErrors()) {
             log("Failed with no exception: ${response.errors?.joinToString()}", LogLevel.W)
-            return ApiResponse.Unexpected(null)
+            return ApiResponse.Failure(map(response.data), response.errors)
         }
         val data = response.data
         return ApiResponse.Success(map(data))
@@ -30,9 +29,8 @@ suspend fun <T : Mutation.Data, R : Any> ApolloClient.executeMutation(
             key("mutationName", mutation.name())
         }
         return when (e) {
-            is ApolloNetworkException -> ApiResponse.NetworkError(e.message)
-            is ApolloHttpException -> ApiResponse.Failure(e.statusCode, e.message)
-            else -> ApiResponse.Unexpected(e.cause)
+            is ApolloHttpException -> ApiResponse.HttpFailure(e.statusCode, e.message)
+            else -> ApiResponse.NetworkError(e.message) // 나머진 모두 네트워크 연결 에러로 취급
         }
     }
 }
@@ -45,7 +43,7 @@ suspend fun <T : Query.Data, R : Any> ApolloClient.executeQuery(
         val response = this.query(query).execute()
         if (response.hasErrors()) {
             log("Failed with no exception: ${response.errors?.get(0)?.message}", LogLevel.W)
-            return ApiResponse.Unexpected(null)
+            return ApiResponse.Failure(map(response.data), response.errors)
         }
         val data = response.data
         return ApiResponse.Success(map(data))
@@ -55,9 +53,8 @@ suspend fun <T : Query.Data, R : Any> ApolloClient.executeQuery(
             key("queryName", query.name())
         }
         return when (e) {
-            is ApolloNetworkException -> ApiResponse.NetworkError(e.message)
-            is ApolloHttpException -> ApiResponse.Failure(e.statusCode, e.message)
-            else -> ApiResponse.Unexpected(e.cause)
+            is ApolloHttpException -> ApiResponse.HttpFailure(e.statusCode, e.message)
+            else -> ApiResponse.NetworkError(e.message)
         }
     }
 }
