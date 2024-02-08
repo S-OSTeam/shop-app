@@ -18,5 +18,10 @@
     <string name="email">이메일</string>
     <string name="nickname">닉네임</string>
     <string name="phone">전화번호</string>
+    <string name="login">로그인</string>
+    <string name="account_search">계정조회</string>
+    <string name="easy_social_login">간편 로그인</string>
+    <string name="id_save">아이디 저장</string>
+
 
 </resources>

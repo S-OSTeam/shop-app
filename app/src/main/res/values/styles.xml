@@ -16,4 +16,12 @@
         <item name="hintTextColor">#7d8b9f</item>
         <item name="android:paddingTop">16dp</item>
     </style>
+
+    <style name="HintTextAppearance" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="MyZeroSizeTextAppearance">
+        <item name="android:textSize">0sp</item>
+    </style>
 </resources>

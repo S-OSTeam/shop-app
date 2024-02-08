@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import com.example.deamhome.R
 import com.example.deamhome.common.base.BindingActivity
 import com.example.deamhome.common.util.log

@@ -5,6 +5,14 @@ mutation SignUpMutation($request: SignUpRequest!) {
 mutation ImageUploadToServer($image: Upload!){
     uploadImage(image: $image)
 }
+
+mutation LoginMutation($request: LoginRequest!) {
+    login(request:$request){
+        accessToken
+        refreshToken
+        userId
+    }
+}
 #
 #query FindCategoryByTitle($title:String){
 #    findCategoryByTitle(title: $title) {
