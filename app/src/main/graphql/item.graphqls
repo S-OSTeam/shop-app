@@ -1,36 +1,48 @@
-input ItemRequestDTO {
+input ItemRequest {
+    categoryPublicId: Long! @Min(value : 1)
+    title: String! @NotBlank
+    content: String! @NotBlank
+    summary: String! @NotBlank
+    price: Int!
+    status: Boolean!
+    sellerId: String! @NotBlank
+    stockCnt: Int!
+    freeDelivery: Boolean!
+    images: [Upload!]!
+}
+
+type ItemResponse {
+    publicId: Long!
+    categoryPublicId: Long!
     title: String!
     content: String!
     summary: String!
     price: Int!
-    status: Boolean!
-    categoryTitle: String!
-    detailCategoryTitle: String!
-    sellerId: String!
-    images: [Upload!]
-}
-
-type ItemResponseDTO {
-    title: String!
-    content: String!
-    summary: String!
     sellCnt: Int!
     wishCnt: Int!
+    stockCnt: Int!
     clickCnt: Int!
     avgReview: Float!
     reviewCnt: Int!
     qnaCnt: Int!
     status: Boolean!
-    images: [Image]!
     sellerId: String!
-    #    account: Account
+    freeDelivery: Boolean!
+    imageUrls: [String!]!
 }
 
-type Image{
-    fileName: String
-    fileOriName: String
-    path: String
-    size: Long
-    type: String
-    fileUrl: String
+input WishListRequest{
+    # 사용자 ID
+    userId: String!
+    # 아이템 ID
+    itemId: String!
+}
+
+input WishListPageRequest{
+    # 사용자 ID
+    userId: String!
+    # 페이지 번호
+    page: Int
+    # 페이지 크기
+    pageSize: Int!
 }

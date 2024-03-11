@@ -8,6 +8,6 @@ class NetworkProductDataSource(
     private val productService: ProductApolloService,
 ) {
     suspend fun test(): ApiResponse<Test> {
-        return productService.getTest()
+        return ApiResponse.Success(Test("dafs"))
     }
 }

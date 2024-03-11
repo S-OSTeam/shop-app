@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SignUpTextInputOutlinedBoxLayout" parent="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/vista_blue_80A1D4</item>
+        <item name="hintTextColor">@color/vista_blue_80A1D4</item>
+        <item name="errorEnabled">true</item>
+        <item name="helperTextEnabled">true</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <style name="SignUpTextInputFilledBoxLayout" parent="@style/Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintTextColor">#7d8b9f</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <style name="HintTextAppearance" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="MyZeroSizeTextAppearance">
+        <item name="android:textSize">0sp</item>
+    </style>
+</resources>

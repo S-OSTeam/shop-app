@@ -11,7 +11,10 @@
 
     <!-- Base application theme. -->
     <style name="Base.Theme.DeamHome" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/vista_blue_80A1D4</item>
         <item name="android:statusBarColor">@color/white_FFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowIsTranslucent">false</item>
+        <item name="android:textColorHighlight">@color/vista_blue_80A1D4</item>
     </style>
 </resources>

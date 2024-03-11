@@ -22,6 +22,7 @@ import com.example.deamhome.domain.repository.AuthRepository
 // 객체 생성을 애플리케이션 객체 초기화시 이렇게 모두 해버리면 앱 시작이 늦어질 수 있음. 싱글톤 패턴으로 분리예정
 class DIContainer(
     application: Application,
+    deviceId: String,
 ) {
     private val Context.dataStore by dataStore(
         fileName = LocalAuthDataSource.AUTH_TOKEN_STORE_NAME,
@@ -31,7 +32,7 @@ class DIContainer(
         LocalAuthDataSource(application.dataStore)
 
     // 로깅용 인터셉터로 공용임.
-    private val loggingInterceptor = LoggingApolloInterceptor()
+    private val loggingInterceptor = LoggingApolloInterceptor(deviceId)
 
     // 토큰 삽입을 하지 않고 요청을 보내는 아폴로 클라이언트
     private val authApolloClient: ApolloClient =

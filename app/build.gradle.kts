@@ -58,17 +58,19 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    apollo {
-        service("service") {
-            mapScalarToUpload("Upload")
-            packageName.set("com.example.deamhome.model")
-        }
-    }
     buildFeatures {
         buildConfig = true
     }
     dataBinding {
         enable = true
+    }
+}
+
+apollo {
+    service("service") {
+        mapScalarToUpload("Upload")
+        packageName.set("com.example.deamhome.model")
+        generateOptionalOperationVariables.set(false) // 해도 말 안들음.
     }
 }
 

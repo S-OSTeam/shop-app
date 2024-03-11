@@ -1,76 +1,65 @@
 package com.example.deamhome.presentation.auth.signup
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.deamhome.app.DeamHomeApplication
-import com.example.deamhome.common.util.log
-import com.example.deamhome.domain.model.ApiResponse
-import com.example.deamhome.domain.model.Test
+import com.example.deamhome.domain.model.SignUpInfo
+import com.example.deamhome.domain.repository.AuthRepository
 import com.example.deamhome.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
     private val productRepository: ProductRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
-
-    data class UiState(
-        val loading: Boolean = true,
-        val error: Boolean = false,
-        val test: Test = EMPTY_TEST,
-    ) {
-        companion object {
-            val EMPTY_TEST = Test("")
-        }
-    }
 
     private val _event: MutableSharedFlow<Event> = MutableSharedFlow<Event>()
     val event: SharedFlow<Event>
         get() = _event
 
-    private
-    val _uiState: MutableLiveData<UiState> = MutableLiveData(UiState())
-    val uiState: LiveData<UiState>
-        get() = _uiState
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState>
+        get() = _uiState.asStateFlow()
 
-    fun fetchTest() {
+    val id: MutableStateFlow<String> = MutableStateFlow("")
+    val isValidateId: StateFlow<Boolean> =
+        id.map {
+            kotlin.runCatching { SignUpInfo.validateIdFormat(it) }
+                .getOrNull() ?: false
+        }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    fun fetchSignUp() {
         viewModelScope.launch {
-            if (_uiState.value?.loading == true) return@launch
-            _uiState.value = _uiState.value?.copy(loading = true)
-            when (val response = productRepository.test()) {
-                is ApiResponse.Success -> {
-                    log("success: $${response.body}")
-                    _uiState.value = _uiState.value?.copy(
-                        loading = false,
-                        test = response.body ?: UiState.EMPTY_TEST,
-                    )
-                }
-
-                is ApiResponse.Failure -> {
-                    log("success: $${response.responseCode}. ${response.error}")
-                    _uiState.value = _uiState.value?.copy(loading = false, error = true)
-                }
-
-                is ApiResponse.NetworkError -> {
-                    log("network: $${response.message}")
-                    _event.emit(Event.NetworkErrorEvent)
-                }
-
-                is ApiResponse.Unexpected -> {
-                    log("unexpected: $${response.t}")
-                    _uiState.value = _uiState.value?.copy(loading = false, error = true)
-                }
-            }
+            if (_uiState.value.loading) return@launch
+            _uiState.update { it.copy(loading = true) }
+            if (!checkInputInfo()) return@launch _uiState.update { it.copy(loading = false) }
         }
     }
 
+    private fun checkInputInfo(): Boolean {
+        return true
+    }
+
+    data class UiState(
+        val loading: Boolean = false,
+        val error: Boolean = false,
+        val signUpSuccess: Boolean = false,
+    )
+
     sealed interface Event {
         data object NetworkErrorEvent : Event
+        data object SignUpErrorEvent : Event
     }
 
     companion object {
@@ -82,6 +71,7 @@ class SignUpViewModel(
             ): T {
                 return SignUpViewModel(
                     DeamHomeApplication.container.productRepository,
+                    DeamHomeApplication.container.authRepository,
                 ) as T
             }
         }

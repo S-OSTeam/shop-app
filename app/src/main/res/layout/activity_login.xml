@@ -1,27 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <data>
+
+        <variable
+            name="vm"
+            type="com.example.deamhome.presentation.auth.login.LoginViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white_FFFFFF"
         tools:context=".presentation.auth.login.LoginActivity">
 
-        <Button
-            android:id="@+id/btn_login_success"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인 성공"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:paddingVertical="12dp">
 
-        <Button
-            android:id="@+id/btn_login_failed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="로그인 실패"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="72dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="72dp" />
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@color/vista_blue_80A1D4"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_login_title"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_marginVertical="12dp"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/iv_logo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_id"
+                style="@style/SignUpTextInputOutlinedBoxLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:hint="@string/id"
+                android:paddingTop="0dp"
+                app:endIconDrawable="@drawable/baseline_clear_24"
+                app:endIconMode="clear_text"
+                app:errorTextAppearance="@style/MyZeroSizeTextAppearance"
+                app:expandedHintEnabled="false"
+                app:hintTextAppearance="@style/HintTextAppearance"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_login_title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etv_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingVertical="6dp"
+                    android:text="@={vm.id}"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_pwd"
+                style="@style/SignUpTextInputOutlinedBoxLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:hint="@string/password"
+                android:paddingTop="0dp"
+                app:endIconMode="password_toggle"
+                app:errorIconDrawable="@null"
+                app:errorTextAppearance="@style/MyZeroSizeTextAppearance"
+                app:expandedHintEnabled="false"
+                app:hintTextAppearance="@style/HintTextAppearance"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_id">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etv_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingVertical="6dp"
+                    android:text="@={vm.pwd}"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_login_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="#FFB2271D"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_pwd"
+                tools:text="아이디 확인해주세요" />
+
+            <CheckBox
+                android:id="@+id/cb_save_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="0dp"
+                android:paddingStart="-8dp"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_pwd" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center"
+                android:text="@string/id_save"
+                app:layout_constraintBottom_toBottomOf="@id/cb_save_login"
+                app:layout_constraintStart_toEndOf="@id/cb_save_login"
+                app:layout_constraintTop_toTopOf="@id/cb_save_login" />
+
+            <ProgressBar
+                android:id="@+id/pb"
+                isVisible="@{vm.isLoading}"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btn_login"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/blue_button_radius_background"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:onClick="@{()->vm.login()}"
+                android:text="@string/login"
+                android:textColor="@color/white_FFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/cb_save_login" />
+
+            <TextView
+                android:id="@+id/btn_signup"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/white_button_black_radius_background"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:text="@string/signup"
+                app:layout_constraintEnd_toStartOf="@id/btn_account_search"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+            <TextView
+                android:id="@+id/btn_account_search"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/white_button_black_radius_background"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:text="@string/account_search"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/btn_signup"
+                app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+            <FrameLayout
+                android:id="@+id/fl_easy_login_title_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/btn_account_search">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/shadow"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_divider"
+                    app:layout_constraintTop_toTopOf="@id/tv_divider" />
+
+                <TextView
+                    android:id="@+id/tv_divider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/white_FFFFFF"
+                    android:paddingHorizontal="8dp"
+                    android:text="@string/easy_social_login"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_kakao"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/yellow_FFCB45"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:text="카카오"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/fl_easy_login_title_container" />
+
+            <TextView
+                android:id="@+id/tv_google"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/yellow_FFCB45"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:text="구글"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_kakao" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_google" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

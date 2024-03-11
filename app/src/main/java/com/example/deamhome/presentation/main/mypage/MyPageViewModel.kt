@@ -94,6 +94,10 @@ class MyPageViewModel(
                 }
 
                 is ApiResponse.Failure -> {
+                    _profileUiState.update { it.copy(isLoading = false, isError = false) }
+                }
+
+                is ApiResponse.HttpFailure -> {
                     if (response.responseCode == 401) {
                         // 로그인창으로 보내기. 필요하다면,
                         _event.emit(Event.NavigateToLogin)
@@ -103,10 +107,6 @@ class MyPageViewModel(
 
                 is ApiResponse.NetworkError -> {
                     _event.emit(Event.NetworkErrorEvent) // 네트워크 에러는 UI의 상태가 변경된다기 보다, 단발적으로 유저에게 알린다.
-                    _profileUiState.update { it.copy(isLoading = false, isError = false) }
-                }
-
-                is ApiResponse.Unexpected -> {
                     _profileUiState.update { it.copy(isLoading = false, isError = false) }
                 }
             }
